@@ -1,0 +1,34 @@
+.navbar {
+    text-align: center;
+    background-color: purple;
+    padding: 40px;
+}
+
+.logo {
+    color: #ff007f;
+    font-family: Orbitron;
+    text-shadow: 0 0 10px black;
+    font-size: 30px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #E4FF30;
+}
+
+.nav-links span {
+    color: #16F529;
+}
