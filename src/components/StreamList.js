@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import '../StreamList.css';
 
@@ -8,6 +8,17 @@ function StreamList() {
     const [input, setInput] = useState('');
     const [items, setItems] = useState([]);
     const [editId, setEditId] = useState(null);
+
+    useEffect(() => {
+        const savedItems = localStorage.getItem("streamlist");
+        if (savedItems) {
+            setItems(JSON.parse(savedItems));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("streamlist", JSON.stringify(items));
+    }, [items]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
