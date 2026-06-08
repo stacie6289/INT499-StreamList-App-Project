@@ -1,16 +1,22 @@
-const api_key = "a186248a860965c01999ca9146dd395a";
+const api_key = process.env.REACT_APP_TMDB_KEY;
 const base_url = "https://api.themoviedb.org/3";
 
-export async function getPopularMovies() {
-    const response = await fetch(
-        `${base_url}/movie/popular?api_key=${api_key}`
-    );
-    return response.json();
+async function fetchFromTMDB(endpoint) {
+  try {
+    const response = await fetch(`${base_url}/${endpoint}?api_key=${api_key}`);
+
+    if (!response.ok) {
+      console.error("TMDB error:", response.status);
+      return { results: [] };
+    }
+
+    const data = await response.json();
+    return data.results ? data : { results: [] };
+  } catch (error) {
+    console.error("Network error:", error);
+    return { results: [] };
+  }
 }
 
-export async function getPopularShows() {
-    const response = await fetch(
-        `${base_url}/tv/popular?api_key=${api_key}`
-    );
-    return response.json();
-}
+export const getPopularMovies = () => fetchFromTMDB("movie/popular");
+export const getPopularShows = () => fetchFromTMDB("tv/popular");
