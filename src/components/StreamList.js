@@ -10,11 +10,19 @@ function StreamList() {
     const [editId, setEditId] = useState(null);
 
     useEffect(() => {
-        const savedItems = localStorage.getItem("streamlist");
-        if (savedItems) {
-            setItems(JSON.parse(savedItems));
+        try {
+            const saved = localStorage.getItem("streamlist");
+        if (saved) {
+            const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+            setItems(parsed);
+        }
+        }
+    } catch (err) {
+        console.error("LocalStorage error:", err);
         }
     }, []);
+
 
     useEffect(() => {
         localStorage.setItem("streamlist", JSON.stringify(items));
